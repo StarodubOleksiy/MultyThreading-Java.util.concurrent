@@ -171,7 +171,7 @@ public class SquareSumImplementation implements SquareSum  {
         
         
         
-        //Вирішення цієї самої задачі за допомогою інтерфейсів Callable і Future
+        //Вирішення цієї самої задачі але за допомогою інтерфейсів Callable і Future
         ExecutorService executor = Executors.newFixedThreadPool(step);
         Phaser phsr = new Phaser(1);
         
