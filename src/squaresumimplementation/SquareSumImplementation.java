@@ -17,14 +17,14 @@ class WorkerThread implements Runnable {
      
    private int begin;
    private int end;
-   private Phaser phsr;
+  
    SquareSumImplementation implsum;
      
-    public WorkerThread(int begin, int end, SquareSumImplementation implsum, Phaser phsr){
+    public WorkerThread(int begin, int end, SquareSumImplementation implsum){
         this.begin = begin;
         this.end = end;
         this.implsum = implsum;
-        this.phsr = phsr;
+        
         
     }
  
@@ -33,13 +33,7 @@ class WorkerThread implements Runnable {
         implsum.addValueToSum(implsum.countSquareSum(begin, end));
     }
  
-    private void processCommand() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
  
     
 }
@@ -133,14 +127,14 @@ public class SquareSumImplementation implements SquareSum  {
        while(end < arraylength)
        {
            
-           Runnable worker = new WorkerThread(begin, end, sumImpl,phsr);
+           Runnable worker = new WorkerThread(begin, end, sumImpl);
             executor.execute(worker);
            begin = end;
            end +=step;
        }
        end = arraylength;
        phsr.arriveAndAwaitAdvance();
-       Runnable worker = new WorkerThread(begin, end,sumImpl, phsr);
+       Runnable worker = new WorkerThread(begin, end,sumImpl);
        executor.execute(worker);
        
      
